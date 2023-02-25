@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+.court{
+  background: #fff;
+  width: 20%;
+  height: 170px;
+  border-radius: 5px;
+  margin: 20px !important;
+  margin-bottom: 40px !important;
+  flex-grow: 4;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding: 20px 0px;
+}
+
+.nameCourt{
+  text-align: center;
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.containerImageCourt{
+  text-align: center;
+  width: 100%;
+  margin-top: 20px !important;
+}
+
+.containerPlayers{
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+  font-family: "Poppins";
+  align-content: center !important;
+  font-size: 12px;
+  width: 95px;
+  margin-top: 5px !important;
+}
+
+.players{
+  font-family: "Poppins";
+  font-size: 12px;
+}
+
+.boxIcon{
+  margin-top: 5px !important;
+  width: 20px !important;
+}
+
+.containerClock{
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+  font-family: "Poppins";
+  align-content: center !important;
+  font-size: 15px !important;
+  width: 140px;
+  margin-top: 5px !important;  
+}
+
+.clock{
+  font-size: 15px;
+}
