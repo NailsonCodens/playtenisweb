@@ -34,7 +34,7 @@
   font-family: "Poppins";
   align-content: center !important;
   font-size: 12px;
-  width: 95px;
+  width: 110px;
   margin-top: 5px !important;
 }
 
@@ -50,15 +50,27 @@
 
 .containerClock{
   display: flex;
-  justify-content: center !important;
   align-items: center !important;
   font-family: "Poppins";
   align-content: center !important;
   font-size: 15px !important;
   width: 140px;
+  justify-content: center !important;
   margin-top: 5px !important;  
 }
 
 .clock{
   font-size: 15px;
+}
+
+.containerRestTime{
+  height: 20px;
+  text-align: center;
+  font-family: "Poppins";
+  font-size: 13px;  
+}
+
+.queueTitle{
+  font-family: "Poppins";
+  font-size: 13px;  
 }

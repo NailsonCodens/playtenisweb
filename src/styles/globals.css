@@ -25,6 +25,53 @@ body{
 }
 
 .queueAndNotifications{
-  background: black;
+  background: #EBEBEB;
   width: 33%;
+  padding-top: 40px;
+  padding-right: 40px;
+}
+
+.queues{
+  background: #fff;
+  height: 340px;
+  border-radius: 5px;
+  padding: 20px;
+  padding-right: 20px;
+
+}
+
+.warnings{
+  background: #fff;
+  height: 340px;
+  border-radius: 5px;
+  padding: 20px;
+  padding-right: 20px;
+  margin-bottom: 30px !important;  
+}
+
+.players{
+  display: flex !important;
+
+  font-family: "Poppins";
+  width: 100% !important;
+  text-align: left !important;
+}
+
+.icon-queue{
+  width: 25px;
+  margin-top: 4px !important;
+}
+
+.sidePlayers{
+  width: 100% !important;
+}
+
+.BoxQueue{
+  margin-top: 20px !important;
+}
+
+.queueTitle{
+  font-family: "Poppins";
+  font-size: 20px;
+  font-weight: 800;  
 }

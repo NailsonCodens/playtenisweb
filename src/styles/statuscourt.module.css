@@ -2,13 +2,27 @@
 
 .container{
   display: flex;
-  height: 25px;
-  margin-top: 5px !important;
-  background: #1DB83F;
+  height:30px;
   z-index: -1 !important;
   position: relative;
   border-end-start-radius: 5px;  
   border-end-end-radius: 5px;
   justify-content: center;
+  margin-top: -12px !important;
   padding-top: 25px !important;
+}
+
+.statusBar{
+  color: #2e2e2e;
+  font-family: "Poppins";
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.statusGame{
+  color: #fff;
+  font-family: "Poppins";
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 5px;
 }

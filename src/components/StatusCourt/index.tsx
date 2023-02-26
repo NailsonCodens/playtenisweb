@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styles from '../../styles/statuscourt.module.css'
 
 type jointStatus = {
@@ -10,14 +11,24 @@ type jointStatus = {
 }
 
 export function StatusCourt({statusBar, colorCourt, statusGame}: jointStatus){
+  if(colorCourt === 'available'){
+    console.log('dda');
+  }
+
   return (
-    <div className={styles.container}>
-      <div>
-        Disponível
+    <div 
+      style={{ 'background': colorCourt }}
+      className={styles.container} 
+    >
+      <div className={styles.statusBar}>
+        {statusBar}
       </div>
       <div>
-        <div>
-          Para uso
+        <div
+          style={{ 'background': statusGame.color }}        
+          className={styles.statusGame}
+        >
+          { statusGame.text}
         </div>
       </div>
     </div>
