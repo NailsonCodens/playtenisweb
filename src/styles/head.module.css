@@ -5,3 +5,9 @@
   text-align: center;
   padding-top: 20px !important;
 }
+
+.clock{
+  font-family: "Poppins";
+  font-size: 20px;
+  font-weight: 600;
+}

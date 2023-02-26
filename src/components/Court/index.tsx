@@ -253,7 +253,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
         CounterTimeGame();          
       }, 60000)    
     }
-  })
+  }, [])
 
   return(
     <div className={styles.court}>
