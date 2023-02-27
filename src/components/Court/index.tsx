@@ -11,6 +11,7 @@ import { statusGame } from '@/utils/statusGame';
 import { colorsCourt } from '@/utils/colorsCourt';
 import { statusCourtText } from '@/utils/statusCourtText';
 import dayjs from 'dayjs';
+import socketio from '@/socketio';
 
 type Props = {
   id: string,
@@ -68,10 +69,10 @@ export type courtPropsDTO = {
 }
 
 export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, checkQueue}: Props){
-  console.log(reloadCourts);
 
   const [teste, setTeste] = useState([]);
   const [gameCurrent, setGameCurrent] = useState(); 
+  const [courtCurrentName, setCourtCurrentName] = useState();
   const [haveGame, setHaveGame] = useState<boolean>(false);
   const [players, setPlayers] = useState<PlayersDTO[]>([]);
   const [noGame, setNoGame] = useState('Sem jogo');
@@ -105,6 +106,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
     }
 
       setGameCurrent(game);
+      setCourtCurrentName(court.name);
       game && game.players && setPlayers(game.players);    
 
       await asyncLocalStorage.setItem(`STATUS_COURT_${court.id}`, court.status);
@@ -229,8 +231,12 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
           checkQueue();
           setNoGame('Sem jogo');
           asyncLocalStorage.removeItem(`STATUS_COURT_${id}`);
-          asyncLocalStorage.removeItem(`STATUS_GAME_${id}`);          
-        }, 60500);
+          asyncLocalStorage.removeItem(`STATUS_GAME_${id}`);    
+
+          socketio.emit("WarningWebApp", courtCurrentName);
+          socketio.off("WarningWebApp");
+  
+        }, 60800);
       }
     }else{
       console.log('Não posso contar');
@@ -239,7 +245,6 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
 
   useEffect(() => {
     if(reloadCourts){
-      console.log('recarregue');
       fetchStatusCourt(); 
     }else{
       fetchStatusCourt(); 
@@ -253,7 +258,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
         CounterTimeGame();          
       }, 60000)    
     }
-  }, [])
+  })
 
   return(
     <div className={styles.court}>

@@ -11,10 +11,6 @@ type jointStatus = {
 }
 
 export function StatusCourt({statusBar, colorCourt, statusGame}: jointStatus){
-  if(colorCourt === 'available'){
-    console.log('dda');
-  }
-
   return (
     <div 
       style={{ 'background': colorCourt }}
