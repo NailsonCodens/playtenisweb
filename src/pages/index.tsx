@@ -164,7 +164,9 @@ export default function Home() {
 
   useEffect(() => {
     socketio.on("warningWebAppResponse", (data) => {
-      addWarning(data);
+      if(queue.length > 0){
+        addWarning(data);
+      }
     });
     
     return () => {
