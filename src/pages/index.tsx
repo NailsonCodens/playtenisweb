@@ -153,7 +153,6 @@ export default function Home() {
     await asyncLocalStorage.setItem(`warnings`, storage);
     await asyncLocalStorage.setItem('hideMessage', true);
 
-
     setModal(true);
 
     setShineQueue(true);
@@ -179,8 +178,10 @@ export default function Home() {
     await asyncLocalStorage.removeItem(`warnings`);
     await asyncLocalStorage.removeItem(`hideMessage`);
      setModal(false);
+     setWarnings([]);
 
      setTimeout(() => {
+
       setShineQueue(false);      
     }, 50000); 
   }
