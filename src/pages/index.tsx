@@ -12,13 +12,15 @@ import { asyncLocalStorage } from 'async-web-storage';
 type CourtData = {
   id: string,
   name: string,  
+  status: string
 };
 
 type typeCourt = {
   id: string,
   name: string,
   status: string,
-  game: DataObject
+  game: DataObject,
+  court: CourtData
 };
 
 type queueType = {
@@ -71,7 +73,7 @@ export default function Home() {
   }
 
 
-  function renderCourt(court: typeCourt){
+  function renderCourt(court: { id: string; name: string; status: string; }){
     return (
       <Court
       key={court.id}
@@ -141,7 +143,7 @@ export default function Home() {
 
     let warningsStorage = await asyncLocalStorage.getItem(`warnings`);
 
-    warningsStorage = warningsStorage === null ? [] : warningsStorage.sort((a, b) =>
+    warningsStorage = warningsStorage === null ? [] : warningsStorage.sort((a: number, b: number) =>
     a > b ? 1 : -1,
   );
 
@@ -170,6 +172,7 @@ export default function Home() {
       socketio.off("warningWebAppResponse");
       socketio.off("WarningWebApp");
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socketio]);
 
   async function hideWarning(){
@@ -193,7 +196,7 @@ export default function Home() {
     socketio.on("reloadResponse", (data) => {
       console.log('execute');
       setReload(true);    
-      reloadFetchCourts(data);
+      reloadFetchCourts();
       fetchQueue();        
       setReload(false);
     });
