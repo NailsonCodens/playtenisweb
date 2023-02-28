@@ -11,14 +11,16 @@ import { asyncLocalStorage } from 'async-web-storage';
 
 type CourtData = {
   id: string,
-  name: string,  
+  name: string,
+  status: string,
 };
 
 type typeCourt = {
   id: string,
   name: string,
   status: string,
-  game: DataObject
+  game: DataObject,
+  court: CourtData
 };
 
 type queueType = {
@@ -71,7 +73,7 @@ export default function Home() {
   }
 
 
-  function renderCourt(court: typeCourt){
+  function renderCourt(court: { id: string; name: string; status: string; }){
     return (
       <Court
       key={court.id}
@@ -135,13 +137,14 @@ export default function Home() {
     );
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   async function addWarning(data: string){
     setWarnings(prevState => [...prevState, `${data} liberada!`]);
     setRemoveWithTimeOut(true);   
 
     let warningsStorage = await asyncLocalStorage.getItem(`warnings`);
 
-    warningsStorage = warningsStorage === null ? [] : warningsStorage.sort((a, b) =>
+    warningsStorage = warningsStorage === null ? [] : warningsStorage.sort((a: number, b: number) =>
     a > b ? 1 : -1,
   );
 
@@ -170,7 +173,7 @@ export default function Home() {
       socketio.off("warningWebAppResponse");
       socketio.off("WarningWebApp");
     };
-  }, [socketio]);
+  }, [addWarning]);
 
   async function hideWarning(){
     await asyncLocalStorage.removeItem(`warnings`);
@@ -192,7 +195,7 @@ export default function Home() {
   useEffect(() => {
     socketio.on("reloadResponse", (data) => {
       setReload(true);    
-      reloadFetchCourts(data);
+      reloadFetchCourts();
       fetchQueue();        
       setReload(false);
     });
