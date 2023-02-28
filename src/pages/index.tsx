@@ -39,7 +39,7 @@ export default function Home() {
   const [reload, setReload] = useState(false);
   const [queue, setQueue] = useState<queueType[]>([]);
   const [showButton, setShowButton] = useState<boolean>(false);
-  const [warnings, setWarnings] = useState<string[]>([]);
+  const [warnings, setWarnings] = useState<string>('');
   const [removeWithTimeOut, setRemoveWithTimeOut] = useState(false);
   const [modal, setModal] = useState<boolean>(false);
   const [shineQueue, setShineQueue] = useState<boolean>(false);
@@ -138,20 +138,8 @@ export default function Home() {
   }
 
   async function addWarning(data: string){
-    setWarnings(prevState => [...prevState, `${data} liberada!`]);
+    setWarnings(data);
     setRemoveWithTimeOut(true);   
-
-    let warningsStorage = await asyncLocalStorage.getItem(`warnings`);
-
-    warningsStorage = warningsStorage === null ? [] : warningsStorage.sort((a: number, b: number) =>
-    a > b ? 1 : -1,
-  );
-
-    let storage = JSON.stringify([...warningsStorage, `${data} liberada!`]);
-
-    
-    await asyncLocalStorage.setItem(`warnings`, storage);
-    await asyncLocalStorage.setItem('hideMessage', true);
 
     setModal(true);
 
@@ -180,7 +168,7 @@ export default function Home() {
     await asyncLocalStorage.removeItem(`warnings`);
     await asyncLocalStorage.removeItem(`hideMessage`);
      setModal(false);
-     setWarnings([]);
+     setWarnings('');
 
      setTimeout(() => {
 
@@ -211,10 +199,6 @@ export default function Home() {
   }, []);
 
 
-  const strDescending = [...warnings].sort((a, b) =>
-    a > b ? -1 : 1,
-  );
-
   return (
     <div>
       {
@@ -226,13 +210,9 @@ export default function Home() {
                 <p className='title-modal'>Quadra(s) foram liberada(s)!</p>
                 <p className="attention">ATENÇÃO: </p>
                 <p className='titleBoxCourts'>
-                  Caso sejam liberadas mais de uma quadra, ir ao totem
-                  na ordem da  fila de espera.
+                  Quadra {warnings} liberada, vá ao totem para iniciar seu jogo!
                 </p>
                   <div className="boxCourtsModal">
-                  {
-                    warnings.map((warning, key) => renderWarning(warning, key))
-                  }
                 </div>  
               </div>          
             </div>
