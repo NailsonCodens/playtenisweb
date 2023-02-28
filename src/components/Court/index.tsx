@@ -236,7 +236,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
           socketio.emit("WarningWebApp", courtCurrentName);
           socketio.off("WarningWebApp");
   
-        }, 60800);
+        }, 61000);
       }
     }else{
       console.log('Não posso contar');

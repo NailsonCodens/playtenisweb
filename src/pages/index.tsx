@@ -159,7 +159,7 @@ export default function Home() {
 
     setTimeout(() => {
       hideWarning()
-    }, 15000);
+    }, 10000);
   }
 
   useEffect(() => {
@@ -185,7 +185,7 @@ export default function Home() {
      setTimeout(() => {
 
       setShineQueue(false);      
-    }, 50000); 
+    }, 15000); 
   }
 
   useEffect(() => {
