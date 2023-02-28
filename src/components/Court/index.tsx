@@ -249,8 +249,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
     }else{
       fetchStatusCourt(); 
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [reloadCourts])
 
   useEffect(() => {
     if(timeGame === 0){
