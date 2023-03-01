@@ -76,7 +76,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
   const [haveGame, setHaveGame] = useState<boolean>(false);
   const [players, setPlayers] = useState<PlayersDTO[]>([]);
   const [noGame, setNoGame] = useState('Sem jogo');
-
+  const [modalityName, setModalityName] = useState('');
   const [statusBarColorCourt, setStatusBarColorCourt] = useState('');
   const [statusCourtBar, setStatusCourtBar] = useState('');
   const [statusGameBar, setStatusGameBar] = useState(statusGame.available);
@@ -97,10 +97,12 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
 
     console.log(game, court)
 
+
     let checkGame =  'no';
 
     if(game !== null){
       checkGame = 'yes';
+      setModalityName(game.modality.name);
     }else{
       checkGame = 'no';
     }
@@ -272,13 +274,21 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
       </div>
       <div className={styles.containerPlayers}>
         <div className={styles.boxIcon}>
-          <Image
-            alt='UsersIcon'
-            src={users}
-          />
+          {
+            modalityName === '' ? (
+              <div className={styles.empty}>
+
+              </div>
+            ) : (
+              <Image
+                alt='UsersIcon'
+                src={users}
+              />  
+            )
+          }
         </div>
         <div className={styles.players}>
-          <p>{players.length} jogadore(s)</p>
+          <p>{modalityName}</p>
         </div>
       </div>
       <div className={styles.containerClock}>

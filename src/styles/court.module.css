@@ -34,7 +34,8 @@
   font-family: "Poppins";
   align-content: center !important;
   font-size: 12px;
-  width: 110px;
+  width: 200px;
+  text-align: center;
   margin-top: 5px !important;
 }
 
@@ -68,4 +69,8 @@
   text-align: center;
   font-family: "Poppins";
   font-size: 13px;  
+}
+
+.empty{
+  height: 20px;
 }

@@ -242,7 +242,7 @@ export default function Home() {
                 (
                   <>
                     <div className='warningBoxEmpty'>
-                      <p className="warningEmpty">0 jogos na fila de espera</p>
+                      <p className="warningEmpty">0 jogadores na fila de espera</p>
                     </div>
                   </>
                 )
