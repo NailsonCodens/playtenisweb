@@ -56,7 +56,7 @@ export default function Home() {
     setQueue(response.data)
   }
 
-  function checkQueueExists(){
+  async function checkQueueExists(){
     if(queue.length > 0){
       setShowButton(true);
       console.log('libera botão apenas pro primeiro grupo  da fila de espera.');
@@ -125,27 +125,19 @@ export default function Home() {
     setCourts(response.data.list)
   }
 
-  function renderWarning(warning: string, key: number){
-    return(
-      <div className='warningBox' key={key}>
-        <p className="warning">{warning}</p>
-      </div>
-    );
-  }
-
   async function addWarning(data: string){
-    console.log('abri add warning');
-    alert('inicial modal');
 
-    setWarnings(data);
-    setRemoveWithTimeOut(true);   
-    setModal(true);
-    alert('inicial2 modal');
+    const response = await api.get('/queue/');
 
-    setShineQueue(true);
+    if(response.data.length > 0){
+      setWarnings(data);
+      setRemoveWithTimeOut(true);   
+      setModal(true);
+      setShineQueue(true);        
+    }
+  
 
     setTimeout(() => {
-      alert('fecha modal');
       setWarnings('');
       setModal(false);
     }, 10000);
@@ -164,13 +156,16 @@ export default function Home() {
       console.log('avisei aqui');
       console.log(queue.length);
       console.log(queue.length);
+ 
+      addWarning(data);
+/*
       if(queue.length > 0){
 
         console.log('avisei aqui 2');
         console.log('abri add warning');
 
         addWarning(data);        
-      }
+      }*/
     });
     
     return () => {
