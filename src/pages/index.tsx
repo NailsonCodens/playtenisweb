@@ -134,13 +134,17 @@ export default function Home() {
   }
 
   async function addWarning(data: string){
+    alert('inicial modal');
+
     setWarnings(data);
     setRemoveWithTimeOut(true);   
     setModal(true);
+    alert('inicial2 modal');
 
     setShineQueue(true);
 
     setTimeout(() => {
+      alert('fecha modal');
       setWarnings('');
       setModal(false);
     }, 10000);
