@@ -85,7 +85,8 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
   const [timeGame, setTimeGame] = useState<number>(0);
   const [startDateGame, setStartDateGame] = useState('');
   const [endDateGame, setEndDateGame] = useState('');
-    
+  const [randonExecute, setRandonExecute] = useState(0);
+
   async function fetchStatusCourt(){
     asyncLocalStorage.removeItem(`STATUS_COURT_${id}`);
     asyncLocalStorage.removeItem(`STATUS_GAME_${id}`);
@@ -210,7 +211,10 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
   }
 
   async function CounterTimeGame(){    
-    console.log('sadsadsad');
+    
+    setTimeGame(Math.random())
+    setRandonExecute(Math.random())
+
     const statusCortStorage = await asyncLocalStorage.getItem(`STATUS_COURT_${id}`);
     const statusGame = await asyncLocalStorage.getItem(`STATUS_GAME_${id}`);
     console.log(statusCortStorage);
@@ -233,6 +237,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
           setTimeGame(0); 
           setPlayers([]);
           setModalityName('');
+
           checkQueue();
           setNoGame('Sem jogo');
           asyncLocalStorage.removeItem(`STATUS_COURT_${id}`);
@@ -261,11 +266,28 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
     if(timeGame === 0){
     }else{
       setTimeout(() => {  
-        CounterTimeGame();          
-      }, 60000)    
+        console.log('executei uma vez');
+        CounterTimeGame(); 
+
+      }, 1500)    
     }
   })
 
+/*
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      if(timeGame === 0){
+      }else{
+        setTimeout(() => {  
+          CounterTimeGame();          
+        }, 60000)    
+      }
+    }, 1000);
+    return () => { // Return callback to run on unmount.
+      window.clearInterval(timer);
+    };
+  }, []); // Pass in empty array to run useEffect only on mount.
+*/
   return(
     <div className={styles.court}>
       <p className={styles.nameCourt}>{nameCourt}</p>
@@ -315,6 +337,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
       </div>
       <div className={styles.containerRestTime}>
         {timeGame > 0 ? `Tempo restante ${timeGame && timeGame.toString().padStart(2, '0')}:00`: noGame}
+
       </div>      
       <StatusCourt
         statusBar={statusCourtBar}

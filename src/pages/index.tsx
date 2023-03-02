@@ -133,21 +133,18 @@ export default function Home() {
       setWarnings(data);
       setRemoveWithTimeOut(true);   
       setModal(true);
-      setShineQueue(true);        
+      //setShineQueue(true);        
     }
 
-    setTimeout(() => {
+    /*setTimeout(() => {
       setWarnings('');
       setModal(false);
-    }, 10000);
+    }, 10000);*/
 
+    /*setTimeout(() => {
 
-    setTimeout(() => {
-
-     setShineQueue(false);      
-   }, 15000); 
-
-
+      setShineQueue(false);      
+    }, 15000); */
   }
 
   useEffect(() => {
@@ -201,7 +198,6 @@ export default function Home() {
       setReload(false);
     }    
   }, []);
-
 
   return (
     <div>
