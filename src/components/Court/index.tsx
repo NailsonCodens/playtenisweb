@@ -12,6 +12,7 @@ import { colorsCourt } from '@/utils/colorsCourt';
 import { statusCourtText } from '@/utils/statusCourtText';
 import dayjs from 'dayjs';
 import socketio from '@/socketio';
+import { typePlayerHome } from '@/pages';
 
 type Props = {
   id: string,
@@ -113,6 +114,8 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
       setCourtCurrentName(court.name);
       game && game.players && setPlayers(game.players);    
 
+
+
       await asyncLocalStorage.setItem(`STATUS_COURT_${court.id}`, court.status);
       await asyncLocalStorage.setItem(`STATUS_GAME_${court.id}`, checkGame);  
 
@@ -170,6 +173,61 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
     if(game){
       setEndDateGame(dayjs(game.end_time_game).locale('pt-br').format('HH:mm'));
       setStartDateGame(dayjs(game.start_time_game).locale('pt-br').format('HH:mm'));
+    }
+  }
+
+  function renderPlayers(){
+    if(players.length > 0){
+      let arrayPlayers: string[] = [];
+
+      players.map((player, key) => {
+        const newObjectPlayers: typePlayerHome = Object(player);
+
+        let firstName = player.name.split(' ')[0];
+        console.log(firstName);
+
+        if(players.length === 2){
+          if(key === 0){
+            arrayPlayers.push(newObjectPlayers.name.split(' ')[0] + ' x ')
+          }
+    
+          if(key === 1){
+            arrayPlayers.push(newObjectPlayers.name.split(' ')[0])
+          }           
+        }else{
+          if(key === 0){
+            arrayPlayers.push(newObjectPlayers.name.split(' ')[0] + ' e ')
+          }
+    
+          if(key === 1){
+            arrayPlayers.push(newObjectPlayers.name.split(' ')[0])
+          }         
+          
+  
+          if(key === 2){
+            arrayPlayers.push(' x ')
+  
+            arrayPlayers.push(newObjectPlayers.name.split(' ')[0] + ' e ')
+          }         
+          
+          if(key === 3){
+            arrayPlayers.push(newObjectPlayers.name.split(' ')[0] + '  ')
+          }  
+        }
+      });
+
+      const playersTogether = arrayPlayers
+
+      return(
+        <div 
+          className="players"
+        >
+          <div className="sidePlayers">
+            {playersTogether}  
+          </div>
+        </div>
+      );
+
     }
   }
 
@@ -246,7 +304,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
           socketio.emit("WarningWebApp", courtCurrentName);
           socketio.off("WarningWebApp");
   
-        }, 61000);
+        }, 60800);
       }
     }else{
       console.log('Não posso contar');
@@ -268,8 +326,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
       setTimeout(() => {  
         console.log('executei uma vez');
         CounterTimeGame(); 
-
-      }, 1500)    
+      }, 60000)    
     }
   })
 
@@ -300,22 +357,30 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
       <div className={styles.containerPlayers}>
         <div className={styles.boxIcon}>
           {
-            modalityName === '' ? (
-              <div className={styles.empty}>
-
-              </div>
-            ) : (
-              <Image
-                alt='UsersIcon'
-                src={users}
-              />  
+            players.length == 0 ?
+            (
+              <>
+                <div className='empty'>
+                </div>
+              </>
+            ):
+            (
+              <>
+                <Image
+                  alt='UsersIcon'
+                  src={users}
+                /> 
+              </>
             )
           }
         </div>
         <div className={styles.players}>
-          <p>{modalityName}</p>
+          <p>{renderPlayers()}</p>
         </div>
       </div>
+      <div className={styles.modality}>
+        <p>{modalityName}</p>
+      </div>      
       <div className={styles.containerClock}>
         <div className={styles.boxIcon}>
           <Image

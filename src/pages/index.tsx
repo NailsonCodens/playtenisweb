@@ -31,7 +31,7 @@ type queueType = {
   played: string,
 }
 
-type typePlayerHome = {
+export type typePlayerHome = {
   name: string,
 }
 
@@ -86,18 +86,50 @@ export default function Home() {
   function renderQueue(players: string[], id: string, key: number){
     let arrayPlayers: string[] = [];
 
-    players.map((player) => {
+
+    players.map((player, key) => {
       const newObjectPlayers: typePlayerHome = Object(player);
 
-      arrayPlayers.push(newObjectPlayers.name)
+      console.log(newObjectPlayers.name.split(' ')[0]);
+  
+      if(players.length === 2){
+        if(key === 0){
+          arrayPlayers.push(newObjectPlayers.name.split(' ')[0] + ' x ')
+        }
+  
+        if(key === 1){
+          arrayPlayers.push(newObjectPlayers.name.split(' ')[0])
+        }  
+      }else{
+        if(key === 0){
+          arrayPlayers.push(newObjectPlayers.name.split(' ')[0] + ' e ')
+        }
+  
+        if(key === 1){
+          arrayPlayers.push(newObjectPlayers.name.split(' ')[0])
+        }         
+        
+
+        if(key === 2){
+          arrayPlayers.push(' x ')
+
+          arrayPlayers.push(newObjectPlayers.name.split(' ')[0] + ' e ')
+        }         
+        
+        if(key === 3){
+          arrayPlayers.push(newObjectPlayers.name.split(' ')[0] + '  ')
+        }                 
+      }
+
+
     });
 
-    const playersTogether = arrayPlayers.join(' x ')
+    const playersTogether = arrayPlayers
 
     if(playersTogether){
       return(
         <div 
-          key={playersTogether}
+          key={key}
           className="players"
         >
           <div className="icon-queue">
@@ -198,6 +230,22 @@ export default function Home() {
       setReload(false);
     }    
   }, []);
+
+  useEffect(() => {
+    socketio.on("responseHideModalWeb", (data) => {
+      setModal(false);
+      setReload(true);    
+      reloadFetchCourts();
+      fetchQueue();        
+      setReload(false);      
+    });
+    return () => {
+      socketio.off('hideModalWeb')
+      socketio.off('responseHideModalWeb')
+      setReload(false);
+    }    
+  }, []);
+
 
   return (
     <div>

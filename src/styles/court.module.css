@@ -3,7 +3,7 @@
 .court{
   background: #fff;
   width: 20%;
-  height: 170px;
+  height: 195px;
   border-radius: 5px;
   margin: 20px !important;
   margin-bottom: 40px !important;
@@ -34,6 +34,7 @@
   font-family: "Poppins";
   align-content: center !important;
   font-size: 12px;
+  height: 20px;
   width: 200px;
   text-align: center;
   margin-top: 5px !important;
@@ -72,5 +73,16 @@
 }
 
 .empty{
+  background: red;
+  width: 100%;
   height: 20px;
+}
+
+
+.modality{
+  width: 100% !important;
+  height: 20px;
+  text-align: center;
+  font-family: "Poppins";
+  font-size: 13px;   
 }
