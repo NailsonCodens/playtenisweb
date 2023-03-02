@@ -6,6 +6,7 @@ import { Header } from '@/components/Head';
 import { Court, DataObject } from '@/components/Court';
 import { api } from './api/api';
 import users from '../../public/users.png';
+import info from '../../public/info.png';
 import socketio from '@/socketio';
 import { asyncLocalStorage } from 'async-web-storage';
 
@@ -45,11 +46,6 @@ export default function Home() {
   const [shineQueue, setShineQueue] = useState<boolean>(false);
 
   async function fetchCourts(){
-    const storage = await asyncLocalStorage.getItem(`warnings`);
-
-    if(storage){
-      setWarnings(storage);
-    }
 
     const response = await api.get('/courts');
     setCourts(response.data.list);
@@ -140,20 +136,32 @@ export default function Home() {
   async function addWarning(data: string){
     setWarnings(data);
     setRemoveWithTimeOut(true);   
-
     setModal(true);
 
     setShineQueue(true);
 
     setTimeout(() => {
-      hideWarning()
+      setWarnings('');
+      setModal(false);
     }, 10000);
+
+
+    setTimeout(() => {
+
+     setShineQueue(false);      
+   }, 15000); 
+
+
   }
 
   useEffect(() => {
     socketio.on("warningWebAppResponse", (data) => {
+      console.log('avisei aqui');
+      console.log(queue.length);
       if(queue.length > 0){
-        addWarning(data);
+
+        console.log('avisei aqui 2');
+        addWarning(data);        
       }
     });
     
@@ -167,13 +175,7 @@ export default function Home() {
   async function hideWarning(){
     await asyncLocalStorage.removeItem(`warnings`);
     await asyncLocalStorage.removeItem(`hideMessage`);
-     setModal(false);
-     setWarnings('');
-
-     setTimeout(() => {
-
-      setShineQueue(false);      
-    }, 15000); 
+    
   }
 
   useEffect(() => {
@@ -202,18 +204,25 @@ export default function Home() {
   return (
     <div>
       {
-        modal  ? 
+        modal? 
         (
           <>
             <div className='bakcgroundModal'>
               <div className="modal">
-                <p className='title-modal'>Quadra(s) foram liberada(s)!</p>
+                <p className='title-modal'>Uma ou mais quadras foram liberadas!</p>
                 <p className="attention">ATENÇÃO: </p>
                 <p className='titleBoxCourts'>
-                  Quadra {warnings} liberada, vá ao totem para iniciar seu jogo!
+                  {warnings} liberada, vá ao totem para iniciar seu jogo!
                 </p>
                   <div className="boxCourtsModal">
-                </div>  
+                    <div >
+                      <Image
+                        alt='Informations'
+                        src={info}
+                        className="imageinfo"
+                      />
+                    </div>
+                  </div>  
               </div>          
             </div>
           </>
@@ -233,6 +242,7 @@ export default function Home() {
           <div className="queues">
             <p className='queueTitle'>Fila de espera</p>            
             <div className="BoxQueue">
+            {modal}
               {
                 queue.length > 0 ?
                   queue.map((queue, key) => {
