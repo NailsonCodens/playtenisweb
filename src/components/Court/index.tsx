@@ -105,6 +105,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
       setModalityName(game.modality.name);
     }else{
       checkGame = 'no';
+      setModalityName('');
     }
 
       setGameCurrent(game);
@@ -134,6 +135,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
     setEndDateGame('');
     reloadFetchCourts();   
     setTimeGame(0); 
+    setModalityName('');
     setPlayers([]);
     setNoGame('Sem jogo');    
     setHaveGame(false); 
@@ -230,6 +232,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
           reloadFetchCourts();   
           setTimeGame(0); 
           setPlayers([]);
+          setModalityName('');
           checkQueue();
           setNoGame('Sem jogo');
           asyncLocalStorage.removeItem(`STATUS_COURT_${id}`);

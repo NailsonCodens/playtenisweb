@@ -135,7 +135,6 @@ export default function Home() {
       setModal(true);
       setShineQueue(true);        
     }
-  
 
     setTimeout(() => {
       setWarnings('');
