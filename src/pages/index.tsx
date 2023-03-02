@@ -134,6 +134,7 @@ export default function Home() {
   }
 
   async function addWarning(data: string){
+    console.log('abri add warning');
     alert('inicial modal');
 
     setWarnings(data);
@@ -162,9 +163,12 @@ export default function Home() {
     socketio.on("warningWebAppResponse", (data) => {
       console.log('avisei aqui');
       console.log(queue.length);
+      console.log(queue.length);
       if(queue.length > 0){
 
         console.log('avisei aqui 2');
+        console.log('abri add warning');
+
         addWarning(data);        
       }
     });
