@@ -126,6 +126,8 @@ export default function Home() {
 
     const playersTogether = arrayPlayers
 
+
+
     if(playersTogether){
       return(
         <div 
@@ -260,6 +262,20 @@ export default function Home() {
                 <p className='titleBoxCourts'>
                   {warnings} liberada, vá ao totem para iniciar seu jogo!
                 </p>
+                  <div>
+                    {
+                      queue.length > 0 ?
+                        queue.map((queue, key) => {
+
+                          {return key === 0 && renderQueue(queue.players, queue.id, key)}
+                        })
+                      :
+                      (
+                        <>
+                        </>
+                      )
+                    }
+                  </div>
                   <div className="boxCourtsModal">
                     <div >
                       <Image
@@ -288,7 +304,6 @@ export default function Home() {
           <div className="queues">
             <p className='queueTitle'>Fila de espera</p>            
             <div className="BoxQueue">
-            {modal}
               {
                 queue.length > 0 ?
                   queue.map((queue, key) => {
