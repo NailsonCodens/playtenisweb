@@ -270,7 +270,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
 
   async function CounterTimeGame(){    
     
-    setTimeGame(Math.random())
+/*    setTimeGame(Math.random())*/
     setRandonExecute(Math.random())
 
     const statusCortStorage = await asyncLocalStorage.getItem(`STATUS_COURT_${id}`);
