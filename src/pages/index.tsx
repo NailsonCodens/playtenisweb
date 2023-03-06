@@ -262,7 +262,7 @@ export default function Home() {
                 <p className='titleBoxCourts'>
                   {warnings} liberada, vá ao totem para iniciar seu jogo!
                 </p>
-                  <div>
+                  <div className="playersModal">
                     {
                       queue.length > 0 ?
                         queue.map((queue, key) => {

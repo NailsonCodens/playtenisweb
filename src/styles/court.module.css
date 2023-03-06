@@ -3,7 +3,7 @@
 .court{
   background: #fff;
   width: 20%;
-  height: 195px;
+  height: 180px;
   border-radius: 5px;
   margin: 20px !important;
   margin-bottom: 40px !important;
@@ -11,7 +11,7 @@
   justify-content: center;
   align-items: center;
   align-content: center;
-  padding: 20px 0px;
+  padding: 10px 0px;
 }
 
 .nameCourt{
@@ -24,7 +24,7 @@
 .containerImageCourt{
   text-align: center;
   width: 100%;
-  margin-top: 20px !important;
+  margin-top: 0px !important;
 }
 
 .containerPlayers{
