@@ -93,11 +93,9 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
     asyncLocalStorage.removeItem(`STATUS_GAME_${id}`);
 
     const response = await api.get(`/games/game-court-current/${id}`);
-    console.log(response.data);
 
     const {game, court} = response.data;
 
-    console.log(game, court)
 
 
     let checkGame =  'no';
@@ -184,7 +182,6 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
         const newObjectPlayers: typePlayerHome = Object(player);
 
         let firstName = player.name.split(' ')[0];
-        console.log(firstName);
 
         if(players.length === 2){
           if(key === 0){
@@ -275,9 +272,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
 
     const statusCortStorage = await asyncLocalStorage.getItem(`STATUS_COURT_${id}`);
     const statusGame = await asyncLocalStorage.getItem(`STATUS_GAME_${id}`);
-    console.log(statusCortStorage);
     if(statusCortStorage !== 'off' && statusGame === 'yes'){
-      console.log('executando aqui pq é diferente de off');
       const dateNow = dayjs();
       const dateGame = dayjs(dateFinishGame);
       const diffBetweenDate = dateGame.diff(dateNow, 'minute');  
@@ -303,7 +298,7 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
 
           socketio.emit("WarningWebApp", courtCurrentName);
           socketio.off("WarningWebApp");
-  
+
         }, 60800);
       }
     }else{
@@ -324,7 +319,6 @@ export function Court({id, nameCourt, status, reloadCourts, reloadFetchCourts, c
     if(timeGame === 0){
     }else{
       setTimeout(() => {  
-        console.log('executei uma vez');
         CounterTimeGame(); 
       }, 60000)    
     }

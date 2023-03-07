@@ -59,12 +59,10 @@ export default function Home() {
   async function checkQueueExists(){
     if(queue.length > 0){
       setShowButton(true);
-      console.log('libera botão apenas pro primeiro grupo  da fila de espera.');
     }
 
     if(queue.length <= 0){
       setShowButton(false);
-      console.log('esconde o botão pq nao tem mais fila de espera');
     }  
   }
 
@@ -90,8 +88,74 @@ export default function Home() {
     players.map((player, key) => {
       const newObjectPlayers: typePlayerHome = Object(player);
 
-      console.log(newObjectPlayers.name.split(' ')[0]);
+      if(players.length === 2){
+        if(key === 0){
+          arrayPlayers.push(newObjectPlayers.name.split(' ')[0] + ' x ')
+        }
   
+        if(key === 1){
+          arrayPlayers.push(newObjectPlayers.name.split(' ')[0])
+        }  
+      }else{
+        if(key === 0){
+          arrayPlayers.push(newObjectPlayers.name.split(' ')[0] + ' e ')
+        }
+  
+        if(key === 1){
+          arrayPlayers.push(newObjectPlayers.name.split(' ')[0])
+        }         
+        
+
+        if(key === 2){
+          arrayPlayers.push(' x ')
+
+          arrayPlayers.push(newObjectPlayers.name.split(' ')[0] + ' e ')
+        }         
+        
+        if(key === 3){
+          arrayPlayers.push(newObjectPlayers.name.split(' ')[0] + '  ')
+        }                 
+      }
+
+
+    });
+
+    const playersTogether = arrayPlayers
+
+
+
+    if(playersTogether){
+      return(
+        <div 
+          key={key}
+          className="players"
+        >
+          <div className="icon-queue">
+            <Image
+              alt='UsersIcon'
+              src={users}
+            />
+          </div>
+          <div className="sidePlayers">
+            <p className={shineQueue && key === 0 ? 'shine': ''}>
+              {playersTogether}  
+            </p>
+          </div>
+          <div className={shineQueue && key === 0 ? 'shine-btn': 'shinehidde'}>
+            <p className="textShine-btn">Vá ao totem!</p>
+          </div>
+        </div>
+      );  
+    }
+  }
+
+  function renderQueueModal(players: string[], id: string, key: number){
+    let arrayPlayers: string[] = [];
+
+
+    players.map((player, key) => {
+      const newObjectPlayers: typePlayerHome = Object(player);
+
       if(players.length === 2){
         if(key === 0){
           arrayPlayers.push(newObjectPlayers.name.split(' ')[0] + ' x ')
@@ -160,12 +224,12 @@ export default function Home() {
   }
 
   async function addWarning(data: string){
+    setWarnings('');
 
     const response = await api.get('/queue/');
 
     if(response.data.length > 0){
       setWarnings(data);
-      setRemoveWithTimeOut(true);   
       setModal(true);
       //setShineQueue(true);        
     }
@@ -179,15 +243,15 @@ export default function Home() {
 
       setShineQueue(false);      
     }, 15000); */
+    socketio.off("WarningWebApp");
+
   }
 
   useEffect(() => {
     socketio.on("warningWebAppResponse", (data) => {
-      console.log('avisei aqui');
-      console.log(queue.length);
-      console.log(queue.length);
- 
-      addWarning(data);
+      if(!modal === true){
+        addWarning(data);
+      }
 /*
       if(queue.length > 0){
 
@@ -220,7 +284,6 @@ export default function Home() {
 
   useEffect(() => {
     socketio.on("reloadResponse", (data) => {
-      console.log('execute');
       setReload(true);    
       reloadFetchCourts();
       fetchQueue();        
@@ -260,14 +323,14 @@ export default function Home() {
                 <p className='title-modal'>Uma ou mais quadras foram liberadas!</p>
                 <p className="attention">ATENÇÃO: </p>
                 <p className='titleBoxCourts'>
-                  {warnings} liberada, vá ao totem para iniciar seu jogo!
+                  Vá ao totem para iniciar seu jogo!
                 </p>
                   <div className="playersModal">
                     {
                       queue.length > 0 ?
                         queue.map((queue, key) => {
 
-                          {return key === 0 && renderQueue(queue.players, queue.id, key)}
+                          {return key === 0 && renderQueueModal(queue.players, queue.id, key)}
                         })
                       :
                       (
