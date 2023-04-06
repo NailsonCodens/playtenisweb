@@ -32,7 +32,7 @@ O projeto foi desenvolvido usando as linguagens e ferramentas abaixo.
 - [x] Ver fila de espera
 
 
-### Este é um projeto construido com o framework Next.js Siga as instruções a baixo para executar o projeto.
+### Este é um projeto construido com o framework Next.js. Siga as instruções a baixo para executar o projeto.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
