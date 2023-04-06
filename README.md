@@ -11,6 +11,13 @@ Esta aplicação é uma app web usado em TV para mostrar os jogos atuais das qua
 ## Como funciona?
 O PlayTenis Web tem por funcionalidade exibir a todos os jogadores em espera, quais quadras estão em jogo e quais estão para ser liberadas, Além de avisar em forma de popup quais quadras ficaram disponíveis para jogos.
 
+## Juntando todas as partes
+Para ter um funcionamento completo do projeto, você precisa também, baixar e executar a api e o aplicativo.
+
+<a href="https://github.com/NailsonCodens/playtenis" target="_blank">Api PlayTenis</a>
+<a href="https://github.com/NailsonCodens/playtenisapp" target="_blank">App PlayTenis</a>
+
+
 ## Tecnologias utilizadas
 O projeto foi desenvolvido usando as linguagens e ferramentas abaixo.
 
