@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'https://playtenis.qosit.com.br/',
+    baseURL: 'http://426b-201-14-34-109.ngrok-free.app/',
     headers: {'Content-Type': 'application/json'}
 });
 
